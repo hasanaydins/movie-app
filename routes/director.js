@@ -123,4 +123,35 @@ router.get('/', (req, res) => {
     })
 });
 
+//put a director
+router.put('/:director_id', (req,res, next) => {
+  const promise = Director.findByIdAndUpdate(req.params.director_id, req.body, {new: true});
+
+  promise.then((director) => {
+    if(!director){
+      next({  message: 'director bulunamadi..', code:99  });
+    }
+
+    res.json(director);
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
+//delete one director
+router.delete('/:director_id', (req,res, next) => {
+  const promise = Director.findByIdAndRemove(req.params.director_id);
+
+  promise.then((director) => {
+    if(!director){
+      next({  message: 'director bulunamadi..', code:99  });
+    }
+
+
+    res.json( { message: 'deleted'  });
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
 module.exports = router;

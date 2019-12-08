@@ -16,6 +16,14 @@ var app = express();
 //db connectionn
 const db = require('./helper/db')();
 
+//config
+const config = require('./config');
+app.set('api_secret_key', config.api_secret_key); // global degisken tanımanldı
+
+// middelware
+const verifyToken = require('./middleware/verify-token');
+
+
 // view engine setup
 app.set("view engine", "njk"); // uzantı eklemek icin nodemon app.js -e js,html,njk,css
 nunjucks.configure('views', {
@@ -30,6 +38,7 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api', verifyToken);
 app.use('/api/movies', movie);
 app.use('/api/directors', director);
 

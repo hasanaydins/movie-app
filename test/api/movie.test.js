@@ -60,7 +60,7 @@ describe('/api/movies tests', () => {
         });
     });
 
-    describe('/GET/:director_id movie', () => {
+    describe('/GET/:move_id movie', () => {
         it('should get a movie by the given id', function (done) {
             chai.request(server)
                 .get('/api/movies/'+ movieId)
@@ -79,7 +79,7 @@ describe('/api/movies tests', () => {
                 })
 
         });
-    })
+    });
 
     describe('/PUT/:director_id movie', () => {
         it('it should UPDATE a movie given by id', (done) => {
@@ -109,4 +109,20 @@ describe('/api/movies tests', () => {
                 });
         });
     });
+
+    // artık testimiz hem ekleyip hem de sonradan silecek ve veritabanaına da fazladan elemean eklenmeyecek
+    describe('/DELETE/:director_id movie', () => {
+        it('it should DELETE a movie given by id', (done) => {
+            chai.request(server)
+                .delete('/api/movies/'+ movieId)
+                .set('x-access-token', token)
+                .end((err, res) =>{
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('status').eql(1);
+                    done();
+                });
+        });
+    });
+
 });

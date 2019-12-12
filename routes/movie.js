@@ -85,7 +85,7 @@ router.delete('/:movie_id', (req,res, next) => {
     }
 
 
-    res.json(movie);
+    res.json({status: 1});
   }).catch((err) => {
     res.json(err);
   });

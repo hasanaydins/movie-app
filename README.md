@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/hasanaydins/movie-app.svg)](https://travis-ci.org/hasanaydins/movie-app)
+
 # Movies
 
 | Route | HTTP Verb	 | POST body	 | Description	 |
